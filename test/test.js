@@ -23,3 +23,15 @@ const mockReviews = [
       "The coffee was great but the employees didn't let me stay past closing! ): Worst experience ever.",
   },
 ];
+
+describe("calculateStarAverage", () => {
+  it("Return the correct average from the array of reviews", () => {
+    const result = calculateStarAverage(mockReviews);
+    assert.strictEqual(result, (5+3+1) / 3, "average should be correct!");
+  });
+  
+  it("should return no average/NaN for empty array", () => {
+    const result = calculateStarAverage([]);
+    assert.isNaN(result, "The result should be NaN for the empty array");
+  });
+});

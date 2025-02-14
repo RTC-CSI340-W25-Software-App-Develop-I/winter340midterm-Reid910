@@ -24,6 +24,45 @@ const reviews = [
 ];
 /////////////////////////////////////////////////////////////////////
 
-//1. Append the reviews to the DOM
+const AverageRaiting = document.getElementsByClassName("starRating")[0]
 
-//2. Append new reviews to the DOM from the form
+//1. Append the reviews to the DOM
+const AppendTo = document.getElementsByClassName("reviews")[0];
+
+function renderReviews(reviewData) {
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <div class="review_container">
+      <img src="${reviewData.image}" alt="profileImage"/>
+      <div>
+        <p>${reviewData.username}</p>
+        <p>${reviewData.star} ⭐</p>
+        <p>${reviewData.review}</p>
+      </div>
+    </div>`;
+    AppendTo.appendChild(div);
+    AverageRaiting.innerHTML = `Star Rating: ${calculateStarAverage(reviews)}`
+}
+
+reviews.forEach(e => {
+  renderReviews(e)
+});
+
+const username = document.getElementById("username");
+const image = document.getElementById("image");
+const star = document.getElementById("star");
+const review = document.getElementById("review");
+
+const form = document.querySelector("form")
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const newReview = {
+    username: username.value,
+    image: image.value,
+    star: star.value,
+    review: review.value,
+  }
+  reviews.push(newReview)
+  renderReviews(newReview);
+  form.reset();
+})
